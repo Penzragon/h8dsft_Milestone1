@@ -8,4 +8,10 @@ By [Rifky Aliffa](https://github.com/Penzragon)
 
 ## Dataset
 
-## Objective
+## Objectives
+
+Milestones 1 ini dibuat guna mengevaluasi Pembelajaran Phase 0 sebagai berikut:
+
+- Mampu melakukan hypothesis testing terhadap dataset yang diberikan.
+- Mampu membuat dashboard interaktif terhadap dataset yang diberikan.
+- Mampu mempresentasikan hasil visualisasi data dan temuan.
