@@ -8,7 +8,7 @@ By [Rifky Aliffa](https://github.com/Penzragon)
 
 ## Dataset
 
-Dataset yang digunakan dalam project ini adalah dataset penjualan sebuah supermarket. Dataset ini berisi 1000 baris dengan 13 kolom yang diantaranya adalah Invoice id, Branch, City, Customer type, Gender, Product line, Unit price, Quantity, Tax, Total, Date, Payment, COGS, Gross margin percentage, Gross income, dan Rating. Dataset dapat dilihat di [Kaggle](https://www.kaggle.com/aungpyaeap/supermarket-sales)
+Dataset yang digunakan dalam project ini adalah dataset penjualan sebuah supermarket dari January 2019 sampai Maret 2019. Dataset ini berisi 1000 baris dengan 13 kolom yang diantaranya adalah Invoice id, Branch, City, Customer type, Gender, Product line, Unit price, Quantity, Tax, Total, Date, Payment, COGS, Gross margin percentage, Gross income, dan Rating. Dataset dapat dilihat di [Kaggle](https://www.kaggle.com/aungpyaeap/supermarket-sales)
 
 Keterangan pada kolom pada dataset ini adalah:
 
