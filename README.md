@@ -6,6 +6,10 @@ Milestones ini dibuat guna mengevaluasi pembelajaran pada Hacktiv8 Data Science 
 
 By [Rifky Aliffa](https://github.com/Penzragon)
 
+<p align="center">
+  <img src="https://media.istockphoto.com/vectors/startup-team-with-laptops-analyzing-growth-chart-vector-id1289357584?b=1&k=20&m=1289357584&s=612x612&w=0&h=oMu9hsXiqR5HR42ShjYYMG1x9sbZMbOHOkD2UbNLAKk=" alt="image"/>
+</p>
+
 ## Dataset
 
 Dataset yang digunakan dalam project ini adalah dataset penjualan sebuah supermarket dari January 2019 sampai Maret 2019. Dataset ini berisi 1000 baris dengan 13 kolom yang diantaranya adalah Invoice id, Branch, City, Customer type, Gender, Product line, Unit price, Quantity, Tax, Total, Date, Payment, COGS, Gross margin percentage, Gross income, dan Rating. Dataset dapat dilihat di [Kaggle](https://www.kaggle.com/aungpyaeap/supermarket-sales)
