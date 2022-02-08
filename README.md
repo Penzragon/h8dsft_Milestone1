@@ -8,7 +8,7 @@ By [Rifky Aliffa](https://github.com/Penzragon)
 
 ## Dataset
 
-Dataset yang digunakan dalam project ini adalah dataset penjualan sebuah supermarket dari January 2019 sampai Maret 2019. Dataset ini berisi 1000 baris dengan 13 kolom yang diantaranya adalah Invoice id, Branch, City, Customer type, Gender, Product line, Unit price, Quantity, Tax, Total, Date, Payment, COGS, Gross margin percentage, Gross income, dan Rating. Dataset dapat dilihat di [Kaggle](https://www.kaggle.com/aungpyaeap/supermarket-sales)
+Dataset yang digunakan dalam project ini adalah dataset penjualan sebuah supermarket di Myanmar dari January 2019 sampai Maret 2019. Dataset ini berisi 1000 baris dengan 13 kolom yang diantaranya adalah Invoice id, Branch, City, Customer type, Gender, Product line, Unit price, Quantity, Tax, Total, Date, Payment, COGS, Gross margin percentage, Gross income, dan Rating. Dataset dapat dilihat di [Kaggle](https://www.kaggle.com/aungpyaeap/supermarket-sales)
 
 Keterangan pada kolom pada dataset ini adalah:
 
@@ -34,8 +34,7 @@ Keterangan pada kolom pada dataset ini adalah:
 
 ## Objectives
 
-Milestones 1 ini dibuat guna mengevaluasi Pembelajaran Phase 0 sebagai berikut:
+Tujuan yang ingin dicapai pada project ini adalah:
 
-- Mampu melakukan hypothesis testing terhadap dataset yang diberikan.
-- Mampu membuat dashboard interaktif terhadap dataset yang diberikan.
-- Mampu mempresentasikan hasil visualisasi data dan temuan.
+- Mencari tahu kota manakah yang memiliki pendapatan kotor paling besar.
+- Melakukan uji hipotesis untuk mengetahui apakah rata-rata pendapatan kotor dari tiap kota memiliki perbedaan yang signifikan.
