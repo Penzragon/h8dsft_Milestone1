@@ -36,5 +36,5 @@ Keterangan pada kolom pada dataset ini adalah:
 
 Tujuan yang ingin dicapai pada project ini adalah:
 
-- Mencari tahu kota manakah yang memiliki pendapatan kotor paling besar.
+- Mencari tahu kota manakah yang memiliki total pendapatan kotor paling besar.
 - Melakukan uji hipotesis untuk mengetahui apakah rata-rata pendapatan kotor dari tiap kota memiliki perbedaan yang signifikan.
