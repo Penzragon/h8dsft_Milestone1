@@ -1,4 +1,6 @@
 import streamlit as st
+import visualization
+import hypothesis
 
 st.set_page_config(
     page_title="Milestone 1 - Rifky Aliffa",
@@ -12,7 +14,10 @@ st.set_page_config(
     },
 )
 
-PAGES = {"Visualization": "visualization", "Hypothesis Testing": "hypothesis"}
+PAGES = {"Visualization": visualization, "Hypothesis Testing": hypothesis}
 
 st.sidebar.title("Navigation")
 selection = st.sidebar.selectbox("Choose a page", list(PAGES.keys()))
+
+page = PAGES[selection]
+page.app()
