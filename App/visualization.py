@@ -1,8 +1,5 @@
-from datetime import date
-from turtle import width
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 import plotly.express as px
 
 sales = pd.read_csv("dataset/cleandata.csv")
@@ -48,25 +45,226 @@ with st.expander("About Dataset"):
     Dataset asli dapat dilihat di [Kaggle](https://www.kaggle.com/aungpyaeap/supermarket-sales).
     """
 
-line = px.line(
-    sales.groupby(sales.datetime.dt.date).gross_income.mean(),
-    title="Gross Income by Day",
-    labels={"datime": "Date", "value": "Gross Income"},
+barcity = px.histogram(
+    sales,
+    x="city",
+    y="gross_income",
+    color="city",
+    labels={"city": "City", "gross_income": "Gross Income"},
+    title="Gross Income by City",
 )
-st.plotly_chart(line)
+st.plotly_chart(barcity, use_container_width=True)
 
-dates = st.slider(
-    "Select a range of dates",
-    min_value=sales.datetime.dt.date.min(),
-    max_value=sales.datetime.dt.date.max(),
-    value=(sales.datetime.dt.date.min(), sales.datetime.dt.date.max()),
-)
+col1, col2 = st.columns([3, 1])
+with col1:
+    dates = st.slider(
+        "Select a range of dates",
+        min_value=sales.datetime.dt.date.min(),
+        max_value=sales.datetime.dt.date.max(),
+        value=(sales.datetime.dt.date.min(), sales.datetime.dt.date.max()),
+    )
+
+with col2:
+    city = st.selectbox("Select a city", ["All City"] + list(sales.city.unique()))
 
 mask = (sales.datetime.dt.date >= dates[0]) & (sales.datetime.dt.date <= dates[1])
 
-city = st.radio("Select a city", ["All City"] + list(sales.city.unique()))
-
 if city == "All City":
-    sales[mask]
+    df = sales[mask]
+
+    ### for line chart and bar chart ###
+    col3, col4 = st.columns(2)
+    with col3:
+        lineplot = px.line(
+            df.groupby(df.datetime.dt.date).gross_income.mean(),
+            labels={"datetime": "Date", "value": "Gross Income"},
+            title="Average Gross Income by Day",
+        )
+        st.plotly_chart(lineplot, use_container_width=True)
+        with st.expander("See Insight"):
+            (
+                "Supermarket memiliki rata-rata pendapatan terbesar pada **"
+                + str(df.groupby(df.datetime.dt.date).gross_income.mean().idxmax())
+                + "** sedangkan pada **"
+                + str(df.groupby(df.datetime.dt.date).gross_income.mean().idxmin())
+                + "** adalah saat dimana supermarket memiliki rata-rata pendapatan terkecil."
+            )
+
+    with col4:
+        barplot = px.bar(
+            df.groupby(df.datetime.dt.hour).gross_income.sum(),
+            labels={"datetime": "Hour", "value": "Gross Income"},
+            title="Gross Income by Hour",
+        )
+        st.plotly_chart(barplot, use_container_width=True)
+        with st.expander("See Insight"):
+            (
+                "Supermarket memiliki jumlah pendapatan terbesar yang berada pada **jam "
+                + str(df.groupby(df.datetime.dt.hour).gross_income.sum().idxmax())
+                + "** dan jumlah pendapatan terkecil berada pada **jam "
+                + str(df.groupby(df.datetime.dt.hour).gross_income.sum().idxmin())
+                + "**."
+            )
+
+    ### for product line and payment ###
+    col5, col6 = st.columns(2)
+    with col5:
+        productdf = df.groupby("product_line").size().reset_index(name="count")
+        pieplotproduct = px.pie(
+            productdf, values="count", names="product_line", title="Product Line Sold"
+        )
+        st.plotly_chart(pieplotproduct, use_container_width=True)
+        with st.expander("See Insight"):
+            (
+                "Produk yang paling banyak terjual di supermarket adalah produk berkategori **"
+                + str(df.groupby("product_line").size().idxmax())
+                + "** dengan jumlah penjualan sebanyak **"
+                + str(df.groupby("product_line").size().max())
+                + "x**."
+            )
+
+    with col6:
+        paymentdf = df.groupby("payment").size().reset_index(name="count")
+        pieplotpayment = px.pie(
+            paymentdf, values="count", names="payment", title="Payment Method Used"
+        )
+        st.plotly_chart(pieplotpayment, use_container_width=True)
+        with st.expander("See Insight"):
+            (
+                "Di supermarket metode pembayaran yang paling sering digunakan adalah metode pembayaran menggunakan **"
+                + str(df.groupby("payment").size().idxmax())
+                + "** dengan jumlah penggunaan sebanyak **"
+                + str(df.groupby("payment").size().max())
+                + "x**."
+            )
+
+    col7, col8, col9 = st.columns([1, 2, 1])
+    with col8:
+        genderbar = px.histogram(
+            df,
+            x="gender",
+            color="customer_type",
+            title="Number of Customer by Gender and Customer Type",
+        )
+        st.plotly_chart(genderbar, use_container_width=True)
+        with st.expander("See Insight"):
+            (
+                "Pada tanggal **"
+                + str(dates[0])
+                + "** sampai **"
+                + str(dates[1])
+                + "** pengunjung supermarket paling banyak adalah **"
+                + str(df.groupby("gender").size().idxmax())
+                + "** dengan jumlah **"
+                + str(df.groupby("gender").size().max())
+                + "** pengunjung. Jumlah member supermarket paling banyak adalah **"
+                + str(df.groupby(["customer_type", "gender"]).size().idxmax()[1])
+                + "** sebanyak **"
+                + str(df.groupby(["customer_type", "gender"]).size().max())
+                + "** member."
+            )
+
 else:
-    sales[mask][sales[mask].city == city]
+    df = sales[mask][sales[mask].city == city]
+
+    ### for line chart and bar chart ###
+    col3, col4 = st.columns(2)
+    with col3:
+        lineplot = px.line(
+            df.groupby(df.datetime.dt.date).gross_income.mean(),
+            labels={"datetime": "Date", "value": "Gross Income"},
+            title="Average Gross Income by Day",
+        )
+        st.plotly_chart(lineplot, use_container_width=True)
+        with st.expander("See Insight"):
+            (
+                "Supermarket di **"
+                + str(city)
+                + "** memiliki rata-rata pendapatan terbesar pada **"
+                + str(df.groupby(df.datetime.dt.date).gross_income.mean().idxmax())
+                + "** sedangkan pada **"
+                + str(df.groupby(df.datetime.dt.date).gross_income.mean().idxmin())
+                + "** adalah saat dimana supermarket memiliki rata-rata pendapatan terkecil."
+            )
+
+    with col4:
+        barplot = px.bar(
+            df.groupby(df.datetime.dt.hour).gross_income.sum(),
+            labels={"datetime": "Hour", "value": "Gross Income"},
+            title="Gross Income by Hour",
+        )
+        st.plotly_chart(barplot, use_container_width=True)
+        with st.expander("See Insight"):
+            (
+                "Di **"
+                + str(city)
+                + "**, supermarket memiliki jumlah pendapatan terbesar yang berada pada **jam "
+                + str(df.groupby(df.datetime.dt.hour).gross_income.sum().idxmax())
+                + "** dan jumlah pendapatan terkecil berada pada **jam "
+                + str(df.groupby(df.datetime.dt.hour).gross_income.sum().idxmin())
+                + "**."
+            )
+
+    ### for product line and payment ###
+    col5, col6 = st.columns(2)
+    with col5:
+        productdf = df.groupby("product_line").size().reset_index(name="count")
+        pieplotproduct = px.pie(
+            productdf, values="count", names="product_line", title="Product Line Sold"
+        )
+        st.plotly_chart(pieplotproduct, use_container_width=True)
+        with st.expander("See Insight"):
+            (
+                "Produk yang paling banyak terjual di supermarket kota **"
+                + str(city)
+                + "** adalah produk berkategori **"
+                + str(df.groupby("product_line").size().idxmax())
+                + "** dengan jumlah penjualan sebanyak **"
+                + str(df.groupby("product_line").size().max())
+                + "x**."
+            )
+
+    with col6:
+        paymentdf = df.groupby("payment").size().reset_index(name="count")
+        pieplotpayment = px.pie(
+            paymentdf, values="count", names="payment", title="Payment Method Used"
+        )
+        st.plotly_chart(pieplotpayment, use_container_width=True)
+        with st.expander("See Insight"):
+            (
+                "Di kota **"
+                + str(city)
+                + "**, metode pembayaran yang paling sering digunakan adalah metode pembayaran menggunakan **"
+                + str(df.groupby("payment").size().idxmax())
+                + "** dengan jumlah penggunaan sebanyak **"
+                + str(df.groupby("payment").size().max())
+                + "x**."
+            )
+
+    col7, col8, col9 = st.columns([1, 2, 1])
+    with col8:
+        genderbar = px.histogram(
+            df,
+            x="gender",
+            color="customer_type",
+            title="Number of Customer by Gender and Customer Type",
+        )
+        st.plotly_chart(genderbar, use_container_width=True)
+        with st.expander("See Insight"):
+            (
+                "Pada tanggal **"
+                + str(dates[0])
+                + "** sampai **"
+                + str(dates[1])
+                + "** pengunjung supermarket kota **"
+                + str(city)
+                + "** paling banyak adalah **"
+                + str(df.groupby("gender").size().idxmax())
+                + "** dengan jumlah **"
+                + str(df.groupby("gender").size().max())
+                + "** pengunjung. Jumlah member supermarket paling banyak adalah **"
+                + str(df.groupby(["customer_type", "gender"]).size().idxmax()[1])
+                + "** sebanyak **"
+                + str(df.groupby(["customer_type", "gender"]).size().max())
+                + "** member."
+            )
