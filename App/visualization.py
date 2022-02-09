@@ -74,6 +74,23 @@ def app():
     if city == "All City":
         df = sales[mask]
 
+        kolom1, kolom2, kolom3, kolom4, kolom5 = st.columns([1, 1, 1, 1, 1])
+        with kolom1:
+            st.write("Total Invoice")
+            st.title(df.ID.count())
+        with kolom2:
+            st.write("Total Item Sold")
+            st.title(df.quantity.sum())
+        with kolom3:
+            st.write("Total Purchased Amount")
+            st.title("$" + str(round(df.total.sum())))
+        with kolom4:
+            st.write("Total Gross Income")
+            st.title("$" + str(round(df.gross_income.sum())))
+        with kolom5:
+            st.write("Average Rating")
+            st.title(round(df.rating.mean(), 2))
+
         ### for line chart and bar chart ###
         col3, col4 = st.columns(2)
         with col3:
@@ -171,6 +188,23 @@ def app():
 
     else:
         df = sales[mask][sales[mask].city == city]
+
+        kolom1, kolom2, kolom3, kolom4, kolom5 = st.columns([1, 1, 1, 1, 1])
+        with kolom1:
+            st.write("Total Invoice")
+            st.title(df.ID.count())
+        with kolom2:
+            st.write("Total Item Sold")
+            st.title(df.quantity.sum())
+        with kolom3:
+            st.write("Total Purchased Amount")
+            st.title("$" + str(round(df.total.sum())))
+        with kolom4:
+            st.write("Total Gross Income")
+            st.title("$" + str(round(df.gross_income.sum())))
+        with kolom5:
+            st.write("Average Rating")
+            st.title(round(df.rating.mean(), 2))
 
         ### for line chart and bar chart ###
         col3, col4 = st.columns(2)
