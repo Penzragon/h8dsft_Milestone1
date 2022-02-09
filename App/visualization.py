@@ -1,3 +1,5 @@
+from datetime import date
+from turtle import width
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -45,3 +47,26 @@ with st.expander("About Dataset"):
 
     Dataset asli dapat dilihat di [Kaggle](https://www.kaggle.com/aungpyaeap/supermarket-sales).
     """
+
+line = px.line(
+    sales.groupby(sales.datetime.dt.date).gross_income.mean(),
+    title="Gross Income by Day",
+    labels={"datime": "Date", "value": "Gross Income"},
+)
+st.plotly_chart(line)
+
+dates = st.slider(
+    "Select a range of dates",
+    min_value=sales.datetime.dt.date.min(),
+    max_value=sales.datetime.dt.date.max(),
+    value=(sales.datetime.dt.date.min(), sales.datetime.dt.date.max()),
+)
+
+mask = (sales.datetime.dt.date >= dates[0]) & (sales.datetime.dt.date <= dates[1])
+
+city = st.radio("Select a city", ["All City"] + list(sales.city.unique()))
+
+if city == "All City":
+    sales[mask]
+else:
+    sales[mask][sales[mask].city == city]
