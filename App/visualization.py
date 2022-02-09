@@ -8,7 +8,7 @@ def app():
     sales["datetime"] = pd.to_datetime(sales["datetime"])
 
     st.markdown(
-        "<h1 style='text-align: center;'>Visualization Dashboard</h1>",
+        "<h1 style='text-align: center;'>💸Visualization Dashboard💸</h1>",
         unsafe_allow_html=True,
     )
 
@@ -100,7 +100,7 @@ def app():
                 title="Average Gross Income by Day",
             )
             st.plotly_chart(lineplot, use_container_width=True)
-            with st.expander("See Insight"):
+            with st.expander("Get Insight 🧠"):
                 st.write(
                     "Supermarket memiliki rata-rata pendapatan terbesar pada **"
                     + str(df.groupby(df.datetime.dt.date).gross_income.mean().idxmax())
@@ -116,7 +116,7 @@ def app():
                 title="Gross Income by Hour",
             )
             st.plotly_chart(barplot, use_container_width=True)
-            with st.expander("See Insight"):
+            with st.expander("Get Insight 🧠"):
                 st.write(
                     "Supermarket memiliki jumlah pendapatan terbesar yang berada pada **jam "
                     + str(df.groupby(df.datetime.dt.hour).gross_income.sum().idxmax())
@@ -136,7 +136,7 @@ def app():
                 title="Product Line Sold",
             )
             st.plotly_chart(pieplotproduct, use_container_width=True)
-            with st.expander("See Insight"):
+            with st.expander("Get Insight 🧠"):
                 st.write(
                     "Produk yang paling banyak terjual di supermarket adalah produk berkategori **"
                     + str(df.groupby("product_line").size().idxmax())
@@ -151,7 +151,7 @@ def app():
                 paymentdf, values="count", names="payment", title="Payment Method Used"
             )
             st.plotly_chart(pieplotpayment, use_container_width=True)
-            with st.expander("See Insight"):
+            with st.expander("Get Insight 🧠"):
                 st.write(
                     "Di supermarket metode pembayaran yang paling sering digunakan adalah metode pembayaran menggunakan **"
                     + str(df.groupby("payment").size().idxmax())
@@ -169,7 +169,7 @@ def app():
                 title="Number of Customer by Gender and Customer Type",
             )
             st.plotly_chart(genderbar, use_container_width=True)
-            with st.expander("See Insight"):
+            with st.expander("Get Insight 🧠"):
                 st.write(
                     "Pada tanggal **"
                     + str(dates[0])
@@ -179,7 +179,7 @@ def app():
                     + str(df.groupby("gender").size().idxmax())
                     + "** dengan jumlah **"
                     + str(df.groupby("gender").size().max())
-                    + "** pengunjung. Jumlah member supermarket paling banyak adalah **"
+                    + "** pengunjung dan jumlah member supermarket paling banyak adalah **"
                     + str(df.groupby(["customer_type", "gender"]).size().idxmax()[1])
                     + "** sebanyak **"
                     + str(df.groupby(["customer_type", "gender"]).size().max())
@@ -215,7 +215,7 @@ def app():
                 title="Average Gross Income by Day",
             )
             st.plotly_chart(lineplot, use_container_width=True)
-            with st.expander("See Insight"):
+            with st.expander("Get Insight 🧠"):
                 st.write(
                     "Supermarket di **"
                     + str(city)
@@ -233,7 +233,7 @@ def app():
                 title="Gross Income by Hour",
             )
             st.plotly_chart(barplot, use_container_width=True)
-            with st.expander("See Insight"):
+            with st.expander("Get Insight 🧠"):
                 st.write(
                     "Di **"
                     + str(city)
@@ -255,7 +255,7 @@ def app():
                 title="Product Line Sold",
             )
             st.plotly_chart(pieplotproduct, use_container_width=True)
-            with st.expander("See Insight"):
+            with st.expander("Get Insight 🧠"):
                 st.write(
                     "Produk yang paling banyak terjual di supermarket kota **"
                     + str(city)
@@ -272,7 +272,7 @@ def app():
                 paymentdf, values="count", names="payment", title="Payment Method Used"
             )
             st.plotly_chart(pieplotpayment, use_container_width=True)
-            with st.expander("See Insight"):
+            with st.expander("Get Insight 🧠"):
                 st.write(
                     "Di kota **"
                     + str(city)
@@ -292,7 +292,7 @@ def app():
                 title="Number of Customer by Gender and Customer Type",
             )
             st.plotly_chart(genderbar, use_container_width=True)
-            with st.expander("See Insight"):
+            with st.expander("Get Insight 🧠"):
                 st.write(
                     "Pada tanggal **"
                     + str(dates[0])
@@ -304,7 +304,7 @@ def app():
                     + str(df.groupby("gender").size().idxmax())
                     + "** dengan jumlah **"
                     + str(df.groupby("gender").size().max())
-                    + "** pengunjung. Jumlah member supermarket paling banyak adalah **"
+                    + "** pengunjung dan jumlah member supermarket paling banyak adalah **"
                     + str(df.groupby(["customer_type", "gender"]).size().idxmax()[1])
                     + "** sebanyak **"
                     + str(df.groupby(["customer_type", "gender"]).size().max())
