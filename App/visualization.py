@@ -133,14 +133,14 @@ def app():
                     df.groupby(df.datetime.dt.date)
                     .gross_income.mean()
                     .idxmax()
-                    .strftime("%-d %B %Y")
+                    .strftime("%d %B %Y")
                 )
                 + "** sedangkan pendapatan rata-rata terkecilnya berada pada tanggal **"
                 + str(
                     df.groupby(df.datetime.dt.date)
                     .gross_income.mean()
                     .idxmin()
-                    .strftime("%-d %B %Y")
+                    .strftime("%d %B %Y")
                 )
                 + "** yaitu **\$"
                 + str(
@@ -206,9 +206,9 @@ def app():
             st.write(
                 (
                     "Pada tanggal **"
-                    + str(dates[0].strftime("%-d %B %Y"))
+                    + str(dates[0].strftime("%d %B %Y"))
                     + "** sampai **"
-                    + str(dates[1].strftime("%-d %B %Y"))
+                    + str(dates[1].strftime("%d %B %Y"))
                     + "** pengunjung supermarket "
                     + ("di kota **" + city + "** " if city != "All City" else "")
                     + "paling banyak adalah **"
