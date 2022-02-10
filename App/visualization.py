@@ -1,4 +1,5 @@
 from re import X
+from reprlib import aRepr
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -61,6 +62,7 @@ def app():
         labels={"city": "City", "gross_income": "Gross Income"},
         title="Gross Income by City",
     )
+    barcity.update_traces(hovertemplate="%{y} <br> %{x:.0f} <extra></extra>")
     st.plotly_chart(barcity, use_container_width=True)
 
     col1, col2 = st.columns([3, 1])
@@ -110,13 +112,17 @@ def app():
         labels={"datetime": "Date", "value": "Gross Income"},
         title="Average Gross Income by Day",
     )
+    areaplot.update_layout(hovermode="x")
+    areaplot.update_traces(
+        hovertemplate="Average Gross Income: %{y:$.2f}<extra></extra>"
+    )
     st.plotly_chart(areaplot, use_container_width=True)
     with st.expander("Get Insight 🧠"):
         st.write(
             (
                 "Pendapatan rata-rata terbesar supermarket "
                 + ("kota **" + city + "** " if city != "All City" else "")
-                + "adalah sebesar **$"
+                + "adalah **$"
                 + "{:,.2f}".format(
                     df.groupby(df.datetime.dt.date).gross_income.mean().max()
                 )
@@ -134,7 +140,7 @@ def app():
                     .idxmin()
                     .strftime("%d %B %Y")
                 )
-                + "** yaitu sebesar **$"
+                + "** yaitu **$"
                 + "{:,.2f}".format(
                     df.groupby(df.datetime.dt.date).gross_income.mean().min()
                 )
@@ -157,6 +163,7 @@ def app():
                 dtick=1,
             )
         )
+        barplot.update_traces(hovertemplate="Jam %{x}<br>%{y:$.2f}<extra></extra>")
         st.plotly_chart(barplot, use_container_width=True)
         with st.expander("Get Insight 🧠"):
             st.write(
@@ -185,6 +192,7 @@ def app():
             color="customer_type",
             title="Number of Customer by Gender and Customer Type",
         )
+        genderbar.update_traces(hovertemplate="%{y}, %{x}")
         st.plotly_chart(genderbar, use_container_width=True)
         with st.expander("Get Insight 🧠"):
             st.write(
@@ -215,8 +223,9 @@ def app():
             productdf,
             values="count",
             names="product_line",
-            title="Product Line Sold",
+            title="Product Line Purchased",
         )
+        pieplotproduct.update_traces(hovertemplate="%{label}: %{value}x")
         st.plotly_chart(pieplotproduct, use_container_width=True)
         with st.expander("Get Insight 🧠"):
             idmax = df.groupby("product_line").size().idxmax()
@@ -241,12 +250,13 @@ def app():
         pieplotpayment = px.pie(
             paymentdf, values="count", names="payment", title="Payment Method Used"
         )
+        pieplotpayment.update_traces(hovertemplate="%{label}: %{value}x")
         st.plotly_chart(pieplotpayment, use_container_width=True)
         with st.expander("Get Insight 🧠"):
             idmax = df.groupby("payment").size().idxmax()
             st.write(
                 (
-                    "Di supermarket "
+                    "Di supermarket yang berada pada "
                     + ("kota **" + city + "** " if city != "All City" else "")
                     + "metode pembayaran yang paling sering digunakan adalah metode pembayaran menggunakan **"
                     + str(df.groupby("payment").size().idxmax())
