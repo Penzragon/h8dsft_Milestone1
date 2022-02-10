@@ -122,27 +122,31 @@ def app():
             (
                 "Pendapatan rata-rata terbesar supermarket "
                 + ("kota **" + city + "** " if city != "All City" else "")
-                + "adalah **$"
-                + "{:,.2f}".format(
-                    df.groupby(df.datetime.dt.date).gross_income.mean().max()
+                + "adalah **\$"
+                + str(
+                    "{:,.2f}".format(
+                        df.groupby(df.datetime.dt.date).gross_income.mean().max()
+                    )
                 )
                 + "** yang berada pada tanggal **"
                 + str(
                     df.groupby(df.datetime.dt.date)
                     .gross_income.mean()
                     .idxmax()
-                    .strftime("%d %B %Y")
+                    .strftime("%-d %B %Y")
                 )
                 + "** sedangkan pendapatan rata-rata terkecilnya berada pada tanggal **"
                 + str(
                     df.groupby(df.datetime.dt.date)
                     .gross_income.mean()
                     .idxmin()
-                    .strftime("%d %B %Y")
+                    .strftime("%-d %B %Y")
                 )
-                + "** yaitu **$"
-                + "{:,.2f}".format(
-                    df.groupby(df.datetime.dt.date).gross_income.mean().min()
+                + "** yaitu **\$"
+                + str(
+                    "{:,.2f}".format(
+                        df.groupby(df.datetime.dt.date).gross_income.mean().min()
+                    )
                 )
                 + "**."
             ).capitalize()
@@ -171,13 +175,17 @@ def app():
                     ("Di **" + city + "**, " if city != "All City" else "")
                     + "Supermarket memiliki jumlah pendapatan terbesar yang berada pada **jam "
                     + str(df.groupby(df.datetime.dt.hour).gross_income.sum().idxmax())
-                    + "** dengan jumlah pendapatan sebesar **$"
-                    + "{:,.0f}".format(
-                        df.groupby(df.datetime.dt.hour).gross_income.sum().max()
+                    + "** dengan jumlah pendapatan sebesar **\$"
+                    + str(
+                        "{:,.0f}".format(
+                            df.groupby(df.datetime.dt.hour).gross_income.sum().max()
+                        )
                     )
-                    + "** dan jumlah pendapatan terkecil sebesar **$"
-                    + "{:,.0f}".format(
-                        df.groupby(df.datetime.dt.hour).gross_income.sum().min()
+                    + "** dan jumlah pendapatan terkecil sebesar **\$"
+                    + str(
+                        "{:,.0f}".format(
+                            df.groupby(df.datetime.dt.hour).gross_income.sum().min()
+                        )
                     )
                     + "** yang berada pada **jam "
                     + str(df.groupby(df.datetime.dt.hour).gross_income.sum().idxmin())
@@ -198,9 +206,9 @@ def app():
             st.write(
                 (
                     "Pada tanggal **"
-                    + str(dates[0].strftime("%d %B %Y"))
+                    + str(dates[0].strftime("%-d %B %Y"))
                     + "** sampai **"
-                    + str(dates[1].strftime("%d %B %Y"))
+                    + str(dates[1].strftime("%-d %B %Y"))
                     + "** pengunjung supermarket "
                     + ("di kota **" + city + "** " if city != "All City" else "")
                     + "paling banyak adalah **"
@@ -239,8 +247,12 @@ def app():
                     + str(df.groupby("product_line").size().max())
                     + "x** dengan **"
                     + str(df[df.product_line == idmax].quantity.sum())
-                    + " item** yang terjual dan menyumbang pendapatan sebesar **$"
-                    + "{:,.0f}".format(df[df.product_line == idmax].gross_income.sum())
+                    + " item** yang terjual dan menyumbang pendapatan sebesar **\$"
+                    + str(
+                        "{:,.0f}".format(
+                            df[df.product_line == idmax].gross_income.sum()
+                        )
+                    )
                     + "**."
                 ).capitalize()
             )
@@ -262,8 +274,8 @@ def app():
                     + str(df.groupby("payment").size().idxmax())
                     + "** dengan jumlah penggunaan sebanyak **"
                     + str(df.groupby("payment").size().max())
-                    + "x** dan total pembelian sebesar **$"
-                    + "{:,.0f}".format(df[df.payment == idmax].total.sum())
+                    + "x** dan total pembelian sebesar **\$"
+                    + str("{:,.0f}".format(df[df.payment == idmax].total.sum()))
                     + "**."
                 ).capitalize()
             )
