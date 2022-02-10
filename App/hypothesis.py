@@ -11,7 +11,7 @@ st.set_option("deprecation.showPyplotGlobalUse", False)
 
 def app():
     st.markdown(
-        "<h1 style='text-align: center;'>Hypothesis Testing</h1>",
+        "<h1 style='text-align: center;'>🔬Hypothesis Testing🔬</h1>",
         unsafe_allow_html=True,
     )
     st.write(
@@ -36,22 +36,43 @@ def app():
     )
 
     if st.checkbox("Show Average Income"):
-        mean_datetime_city = sales.groupby("city").gross_income.mean().reset_index()
-        piechart = px.pie(mean_datetime_city, names="city", values="gross_income")
-        st.plotly_chart(piechart, use_container_width=True)
+        col1, col2 = st.columns(2)
+        with col1:
+            mean_datetime_city = sales.groupby("city").gross_income.mean().reset_index()
+            piechart = px.pie(
+                mean_datetime_city,
+                names="city",
+                values="gross_income",
+                title="Average Income",
+            )
+            piechart.update_traces(hovertemplate="%{label}<br>$%{value:.2f}")
+            st.plotly_chart(piechart, use_container_width=True)
+
+        with col2:
+            boxplot = px.box(
+                sales,
+                y="city",
+                x="gross_income",
+                color="city",
+                title="Gross Income Distribution by City",
+                labels={"city": "City", "gross_income": "Gross Income"},
+            )
+            st.plotly_chart(boxplot, use_container_width=True)
 
         st.write(
             "**Naypyitaw** average income: **$"
-            + str(round(naypyitaw_income.mean()))
+            + str(round(sales[sales.city == "Naypyitaw"].gross_income.mean(), 2))
             + "**"
         )
         st.write(
             "**Mandalay** average income: **$"
-            + str(round(mandalay_income.mean()))
+            + str(round(sales[sales.city == "Mandalay"].gross_income.mean(), 2))
             + "**"
         )
         st.write(
-            "**Yangon** average income: **$" + str(round(yangon_income.mean())) + "**"
+            "**Yangon** average income: **$"
+            + str(round(sales[sales.city == "Yangon"].gross_income.mean(), 2))
+            + "**"
         )
 
     st.write(
@@ -115,10 +136,13 @@ def app():
                 x=ci[0], color="green", linestyle="--", label="Confidence Interval"
             )
             plt.axvline(x=ci[1], color="green", linestyle="--")
+            plt.title("Two Sample T-Test")
+            plt.xlabel("Income")
+            plt.ylabel("Frequency")
             plt.legend()
             st.pyplot()
 
-    with st.expander("See Conclusion"):
+    with st.expander("See Conclusion🔍"):
         if pval <= significant_threshold:
             st.markdown(
                 "<h3 style='text-align: center;'>Reject the null hypothesis</h3>",
@@ -132,8 +156,8 @@ def app():
         st.write(
             "Dari hasil uji hipotesis menggunakan **two sampe t-test** dengan significant threshold sebesar 0.05 p-value yang didapatkan adalah ",
             pval,
-            ", karena p-value lebih besar dari significant threshold maka pada uji hipotesis ini **gagal menolak H0**.",
+            ", karena p-value lebih besar dari significant threshold maka pada uji hipotesis ini **gagal menolak H0** karena **tidak cukup bukti** untuk menolak hipotesis tersebut.",
         )
         st.write(
-            "Jadi dapat disimpulkan bahwa perbedaan rata-rata pendapatan kotor kota Naypyitaw dengan kota Yangon **tidak signifikan**."
+            "Jadi, dapat disimpulkan bahwa perbedaan rata-rata pendapatan kotor kota Naypyitaw dengan kota Yangon **tidak signifikan**."
         )
