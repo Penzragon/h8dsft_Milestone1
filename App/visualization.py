@@ -268,8 +268,12 @@ def app():
             idmax = df.groupby("payment").size().idxmax()
             st.write(
                 (
-                    "Di supermarket yang berada pada "
-                    + ("kota **" + city + "** " if city != "All City" else "")
+                    "Di supermarket "
+                    + (
+                        "yang berada pada kota **" + city + "** "
+                        if city != "All City"
+                        else ""
+                    )
                     + "metode pembayaran yang paling sering digunakan adalah metode pembayaran menggunakan **"
                     + str(df.groupby("payment").size().idxmax())
                     + "** dengan jumlah penggunaan sebanyak **"
