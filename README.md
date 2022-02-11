@@ -6,6 +6,10 @@ Milestones ini dibuat guna mengevaluasi pembelajaran pada Hacktiv8 Data Science 
 
 By [Rifky Aliffa](https://github.com/Penzragon)
 
+## Dashboard
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://rifkyaliffa-008.herokuapp.com/)
+
 ## Dataset
 
 Dataset yang digunakan dalam project ini adalah dataset penjualan sebuah supermarket di Myanmar dari January 2019 sampai Maret 2019. Dataset ini berisi 1000 baris dengan 13 kolom yang diantaranya adalah Invoice id, Branch, City, Customer type, Gender, Product line, Unit price, Quantity, Tax, Total, Date, Payment, COGS, Gross margin percentage, Gross income, dan Rating. Dataset dapat dilihat di [Kaggle](https://www.kaggle.com/aungpyaeap/supermarket-sales)
